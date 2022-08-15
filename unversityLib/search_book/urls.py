@@ -7,5 +7,4 @@ def ret_req(request):
 
 urlpatterns = [
     path('', views.index, name='search-book'),
-    path(f'{ret_req}', views.index, name='search-book'),
 ]
