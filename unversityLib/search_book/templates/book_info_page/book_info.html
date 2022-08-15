@@ -1,0 +1,211 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='ru'>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="description" content="Электронная библиотека">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Библиотека Университета</title>
+
+        <link rel="stylesheet" href="{% static 'css/book_info/book_info.css' %}">
+
+    </head>
+
+
+    <body>
+
+        <header>
+            <div class="header" id="top_btn">
+                <div class="header__top">
+
+                    <div class="logo"><a class="logo" href="{% url 'home' %}">SMTU lib.</a></div>
+
+                    <nav class="menu">
+
+                        <ul class="menu__list">
+                            <li class="dropdown">
+                                <button class="dropbtn">Категории    <i class="arrow down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for keywords_list in keywords_block %}
+                                        <div class="keywords-block">
+                                            {% for keyword in keywords_list %}
+                                                <form method="POST" action="{% url 'search-book' %}">
+                                                    {% csrf_token %}
+                                                    <input class="category-keyword" type="submit" name="searched" value="{{ keyword.keyword_name }}">
+                                                </form>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </li>
+
+                            <li class="dropdown">
+                                <button class="dropbtn">Авторы    <i class="arrow down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for authors_list in authors_block %}
+                                        <div class="authors-block keywords-block">
+                                            {% for author in authors_list %}
+                                                <form method="POST" action="{% url 'search-book' %}">
+                                                    {% csrf_token %}
+                                                    <input class="author-name" type="submit" name="searched" value="{{ author.name }}">
+                                                </form>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </li>
+
+                            <li class="menu__item">
+                                <form method="POST" action="{% url 'search-book' %}">
+                                    {% csrf_token %}
+                                    <input class="help-btn dropbtn" type="submit" name="searched" value="Статистика">
+                                </form>
+                            </li>
+
+                            <li class="menu__item">
+                                <form method="POST" action="{% url 'search-book' %}">
+                                    {% csrf_token %}
+                                    <input class="help-btn dropbtn" type="submit" name="searched" value="Помощь">
+                                </form>
+                            </li>
+
+                            <li class="menu__item">
+                                <form action="http://127.0.0.1:8000/search">
+                                    {% csrf_token %}
+                                    <input class="search_page dropbtn" type="submit" name="searched" value="Поиск">
+                                </form>
+                            </li>
+                       </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-container">
+            <div class="title_block">
+                <p class="title">{{ book_obj.book_short_name }}</p>
+            </div>
+
+
+            <div class="book_info_container">
+                <div class="book_cover_block">
+                    <img class="book_cover_img" src="{% static book_cover_path %}" alt="BookCover">
+                    <img class="bottom_border_book_cover" src="{% static 'img/source_imgs/bottom-border-book.png' %}" alt="BookCover">
+                    <img class="center_book_cover" src="{% static 'img/source_imgs/bg-book.png' %}" alt="BookCover">
+                </div>
+            </div>
+
+            <div class="book_description_container">
+
+                <div class="desc-item">
+                    <!-- Автор/АвторЫ-->
+                    <b>Авторы:</b>
+                    <form class="fast_search_form" method="POST" action="{% url 'search-book' %}">
+                        {% csrf_token %}
+                        {% for author in book_obj.authors.all %}
+                            {% if author.name == book_obj.authors.all.last.name %}
+                                <input class="search_by_author search_by" type="submit" name="searched" value="{{ author.name }}" title="Быстрый поиск по автору {{ author.name }}">
+                            {% else %}
+                                <input class="search_by_author search_by" type="submit" name="searched" value="{{ author.name }}," title="Быстрый поиск по автору {{ author.name }}">
+                            {% endif %}
+                        {% endfor %}
+                    </form>
+                </div>
+
+                <div class="desc-item">
+                    <b>Ключевые слова:</b>
+
+                    <form class="fast_search_form" method="POST" action="{% url 'search-book' %}">
+                        {% csrf_token %}
+                        {% for keyword in book_obj.keywords.all %}
+                            {% if keyword.keyword_name == book_obj.keywords.all.last.keyword_name %}
+                                <input class="search_by_keyword search_by" type="submit" name="searched" value="{{ keyword.keyword_name }}" title="Быстрый поиск по ключевому слову '{{ keyword.keyword_name }}'">
+                            {% else %}
+                                <input class="search_by_keyword search_by" type="submit" name="searched" value="{{ keyword.keyword_name }}," title="Быстрый поиск по ключевому слову '{{ keyword.keyword_name }}'">
+                            {% endif %}
+                        {% endfor %}
+                    </form>
+                </div>
+
+                <div class="desc-item">
+                    <b>Полное название:</b>
+                    <span>{{ book_obj.book_full_name }}</span>
+                </div>
+
+                <div class="desc-item">
+                    <b>Год издания:</b>
+                    <span>{{ book_obj.year }} год.</span>
+                </div>
+
+                <div class="desc-item">
+                    <b>Кол-во страниц:</b>
+                    <span>{{ book_obj.pages_number }} стр.</span>
+                </div>
+
+                <div class="desc-item">
+                    <b>Формат книги:</b>
+                    <span>{{ book_format }} ({{ file_size }}Мб.)</span>
+                </div>
+
+                <div class="desc-item anchor-to-form">
+                    <form action="#book-annotation">
+                        <button class="anchor-to link-to-annotation">Читать аннотацию</button>
+                    </form>
+
+                    <form action="#download-btn">
+                        <button class="anchor-to link-to-download-btn">Читать книгу</button>
+                    </form>
+                </div>
+
+                <img class="advert-img" src="{% static 'img/book_info_imgs/advertisement.png' %}" alt="Реклама">
+
+                <div class="desc-item annotation" id="book-annotation">
+                    <b>Аннотация из книги:</b>
+                    <p>{{book_obj.book_annotation}}<p>
+                </div>
+
+                <div class="desc-item download-book-block">
+                    <b>Читать книгу: </b>
+                    <div>
+                        <a target='_blank' id="download-btn" href="{% static 'books/' %}{{book_file_name}}" download="">
+                        <button class="book_download_btn">Читать Книгу <img class="download_icon" src="{% static 'img/book_info_imgs/icon-book.png' %}"></button></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+     <div class="bottom_block">
+            <div class="bottom_section_block">
+                <table>
+                    <tr>
+                        <td><a href="">Главная</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">О нас</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Категории</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Авторы</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Статистика</a></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="">Поиск</a></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

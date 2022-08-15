@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='ru'>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="description" content="Электронная библиотека">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Библиотека Университета</title>
+
+        <link rel="stylesheet" href="{% static 'css/search_styles/search.css' %}">
+
+    </head>
+
+
+    <body>
+
+        <header>
+            <div class="header" id="top_btn">
+                <div class="header__top">
+
+                    <div class="logo"><a class="logo" href="{% url 'home' %}">SMTU lib.</a></div>
+
+                    <nav class="menu">
+
+                        <ul class="menu__list">
+
+                            <li class="dropdown">
+                                <button class="dropbtn">Категории    <i class="arrow down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for keywords_list in keywords_block %}
+                                        <div class="keywords-block">
+                                            {% for keyword in keywords_list %}
+                                                <form method="POST" action="{% url 'search-book' %}">
+                                                    {% csrf_token %}
+                                                    <input class="category-keyword" type="submit" name="searched" value="{{ keyword.keyword_name }}">
+                                                </form>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </li>
+
+                            <li class="dropdown">
+                                <button class="dropbtn">Авторы    <i class="arrow down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for authors_list in authors_block %}
+                                        <div class="authors-block keywords-block">
+                                            {% for author in authors_list %}
+                                                <form method="POST" action="{% url 'search-book' %}">
+                                                    {% csrf_token %}
+                                                    <input class="author-name" type="submit" name="searched" value="{{ author.name }}">
+                                                </form>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </li>
+
+                            <li class="menu__item">
+                                <form method="POST" action="{% url 'search-book' %}">
+                                    {% csrf_token %}
+                                    <input class="help-btn dropbtn" type="submit" name="searched" value="Статистика">
+                                </form>
+                            </li>
+
+                            <li class="menu__item">
+                                <form method="POST" action="{% url 'search-book' %}">
+                                    {% csrf_token %}
+                                    <input class="help-btn dropbtn" type="submit" name="searched" value="Помощь">
+                                </form>
+                            </li>
+
+                            <li class="menu__item">
+                                <form action="#search_block">
+                                    <input class="search_page dropbtn" type="submit" name="searched" value="Поиск">
+                                </form>
+                            </li>
+                       </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="head_block">
+
+            <div class="search_title">
+                <h1 id="search_block">Поиск:</h1>
+            </div>
+
+            <div class="search_block">
+                <form method="POST" action="{% url 'search-book' %}">
+
+                    {% csrf_token %}
+
+                    <input class="search" type="search" name="searched" placeholder="Название книги..." value="{{ search_value }}">
+                    <button class="search_submit" type="submit">Поиск</button>
+
+
+                    <div class="search_settings_block">
+                        <b class="sort_by_title">Сортировать по:</b>
+
+                        <label for="radio1">Заглавию</label>
+                        {% if sorted_by == "book_short_name" %}
+                            <input type="radio" id="radio1" name="sort_by" value="book_short_name" checked>
+                        {% else %}
+                            <input type="radio" id="radio1" name="sort_by" value="book_short_name">
+                        {% endif %}
+                        <label for="radio2">Году издания</label>
+                        {% if sorted_by == "year" %}
+                            <input type="radio" id="radio2" name="sort_by" value="year" checked>
+                        {% else %}
+                            <input type="radio" id="radio2" name="sort_by" value="year" >
+                        {% endif %}
+                        <label for="radio3">Имени автора</label>
+                        {% if sorted_by == "authors__name" %}
+                            <input type="radio" id="radio3" name="sort_by" value="authors__name" checked>
+                        {% else %}
+                            <input type="radio" id="radio3" name="sort_by" value="authors__name">
+                        {% endif %}
+                        <label for="radio4">Кол-ву страниц</label>
+                        {% if sorted_by == "pages_number" %}
+                            <input type="radio" id="radio4" name="sort_by" value="pages_number" checked>
+                        {% else %}
+                            <input type="radio" id="radio4" name="sort_by" value="pages_number">
+                        {% endif %}
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="search_results_title">
+            <hr class="new_books_line">
+            <h3>{{ search_title }}</h3>
+            <hr class="new_books_line">
+        </div>
+
+
+        <div class="search_results_block">
+            {% for book in books_list %}
+                <div class="found_book_block">
+
+                    <div class="book_cover_block">
+                        <img class="book_cover_img" src="{% static book.book_cover_path %}" alt="BookCover" title="{{book_object.book_short_name}}">
+                        <img class="bottom_border_book_cover" src="{% static 'img/source_imgs/bottom-border-book.png' %}" alt="BookCover" title="{{book_object.book_short_name}}">
+                        <a href="{% url 'book-info' book.book_object.id %}"><img class="center_book_cover" src="{% static 'img/source_imgs/bg-book.png' %}" alt="BookCover" title="{{book.book_object.book_short_name}}"></a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr class="end_line new_books_line">
+
+        <div class="bottom_block">
+            <div class="bottom_section_block">
+                <table>
+                    <tr>
+                        <td><a href="">Главная</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">О нас</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Категории</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Авторы</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Статистика</a></td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="">Поиск</a></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

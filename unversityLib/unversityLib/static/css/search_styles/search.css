@@ -1,0 +1,478 @@
+
+body {
+        margin: 0;
+        padding: 0;
+        align: center;
+        background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(235,235,238,1) 100%);
+        color: #424242;
+}
+
+.header {
+        width: 100%;
+        max-height: 60px;
+        position: fixed;
+        background: rgba(92,92,92,0.6);
+        z-index: 6;
+}
+
+.logo {
+        font-family:'Bilbo_Regular';
+        font-size: 50px;
+        color: white;
+        display: flex;
+        margin-right: 40px;
+        margin-left: 3%;
+        padding: 0 0 8px 0;
+        text-decoration: none;
+        width: 300px;
+}
+
+
+
+.header__top {
+        width: 80%;
+        display: flex;
+        align: left;
+}
+
+.menu {
+    width: 100%;
+}
+
+.menu__item{
+    position: relative;
+    display: inline-block;
+}
+
+.menu__item:hover input{
+        background-color: rgba(217, 217, 217, 0.3);
+        border-radius: 8px;
+
+}
+
+.menu__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    line-height: 15px;
+}
+
+.all_books_amount {
+        color: rgb(220, 220, 220);
+        margin-top: 45%;
+        margin-left: 15px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+        font-family: "Georgia";
+        color: white;
+        background-color: rgba(255,255,255,0);
+        padding: 5px 10px 5px 5px;
+        font-size: 23px;
+        border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+        position: relative;
+        display: inline-block;
+}
+
+i {
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 4px;
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgba(92,92,92,0.4);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content input {
+        width: 100%;
+        text-align: left;
+        border-width: 0;
+        font-family: "Georgia";
+        font-size: 20px;
+        background-color: rgba(255, 255, 255, 0);
+
+        color: white;
+        padding: 4px 8px;
+        display: block;
+}
+
+
+
+/* Change color of dropdown links on hover */
+.dropdown-content input:hover {
+        color: white;
+        background-color: rgba(92,92,92,0.6);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: flex;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+        background-color: rgba(92,92,92,0.5);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        }
+
+.dropdown:hover .dropbtn i {
+        border-color: white;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+
+}
+
+.head_block {
+        margin: 0 10% 20px 10%;
+        padding: 10px 0 0 0;
+        min-height: 250px;
+}
+
+.search_title h1 {
+        margin-top: 130px;
+        font-size: 35px;
+}
+
+.search_block{
+        padding: 10px 0 10px 0;
+        width: 100%;
+        max-height: 38px;
+        align: center;
+}
+
+.search_block form{
+        padding: 0 0 0 6%;
+}
+
+.search {
+        font-family: "Georgia";
+        font-size: 13pt;
+        width: 85%;
+        height: 30px;
+        padding: 0 20px 0 10px;
+        _padding: 0;
+        margin: 0;
+        outline: 0 none;
+        border: 1px solid #cccccc;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 5px;
+        -moz-box-shadow: offset 0px 5px 5px #ebebeb;
+        -webkit-box-shadow: offset 0px 5px 5px #ebebeb;
+
+
+
+    }
+
+.search:focus {
+    box-shadow: 0 0 5px #87D7FF;
+}
+
+.search_submit {
+        width: 75px;
+        height: 33px;
+        margin-top: 5px;
+
+        border: 1px solid #cccccc;
+        border-radius: 8px;
+
+
+        font-size: 13pt;
+        font-family: "Georgia";
+        color: #696969;
+
+        display: inline-block;
+    }
+
+.search_submit:hover{
+        background-color: #cfcfcf;
+        border: 1px solid #d3d3d3;
+        color: #4f4f4f;
+
+
+    }
+
+.search_submit:active{
+        background-color: #b8b1b8;
+        border: 1px solid #dddddd;
+        color: #0f0f0f;
+    }
+
+.search_settings_block {
+
+        justify-content: space-between;
+        align-items: center;
+        float: left;
+
+        min-height: 30px;
+        margin: 25px 10% 0 10%;
+        padding-left: 90px;
+        display: flex;
+
+        font-size: 18px;
+        white-space: nowrap;
+}
+
+.sort_by_title {
+        margin: 0 40px 0 10px;
+        font-size: 20px;
+}
+
+.search_settings_block input {
+        margin-right: 40px;
+}
+
+
+.search_results_title {
+        margin: 80px 13% 25px 10%;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+}
+
+.search_results_title h3 {
+        border: 2px solid rgba(156, 156, 156, 0.5);
+        border-radius: 10px;
+        color: rgba(100, 100, 100, 0.8);
+        padding: 5px;
+        white-space: nowrap;
+}
+
+.new_books_line {
+        border-width: 0;
+        height: 2px;
+        width: 100%;
+        background-color: rgba(156, 156, 156, 0.5);
+}
+
+.end_line {
+        width: 77%;
+        margin: 80px 13% 25px 10%;
+}
+
+.search_results_block {
+        padding: 1px;
+        margin: 0 11% 25px 14%;
+}
+
+.found_book_block {
+        background-color: rgba(255, 255, 255, 0);
+        width: 245px;
+        min-height: 330px;
+        padding: 5px;
+        padding-top: 20px;
+        display: inline-block;
+        vertical-align:top;
+        transition: padding-top 0.6s;
+}
+
+.book_cover_block {
+    width: 245px;
+    height: 330px;
+    position: relative;
+}
+
+.book_cover_img {
+        position: absolute;
+        z-index: 2;
+}
+
+.bottom_border_book_cover {
+        width: 245px;
+        position: absolute;
+        z-index: 3;
+        top: 300px;
+}
+
+.center_book_cover {
+        width: 245px;
+        height: 330px;
+        position: absolute;
+        z-index: 4;
+        right: 1px:
+        top:0;
+}
+
+.found_book_block:hover {
+        padding-top: 5px;
+
+}
+
+.see_more_books_page_link_block:hover .see_more_button_title {
+    font-size: 28px;
+    color: rgba(69,190,255, 0.9);
+}
+
+.see_more_books_page_link_block button{
+        width: 245px;
+        height: 330px;
+        font-size: 60px;
+        color: rgba(156, 156, 156, 0.9);
+        border: 0 solid white;
+        font-family: "Georgia";
+}
+
+.see_more_books_page_link_block:hover button{
+        color: rgba(69,190,255, 0.9);
+        background-color: rgba(212,212,212, 0.4)
+
+}
+
+.see_more_books_block {
+        background-color: grey;
+        display: inline-block;
+
+}
+
+.see_more_button_title {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(156, 156, 156, 0.9);
+    transition: font-size 2s, color 2s; /* Safari and Chrome */
+}
+
+.see_more_books_page_link_block:hover .see_more_button_title {
+    font-size: 28px;
+    color: rgba(69,190,255, 0.9);
+}
+
+.see_more_books_page_link_block:hover .jumping-dots span {
+  position: relative;
+  bottom: 0px;
+  animation: jump 1s infinite;
+}
+.see_more_books_page_link_block:hover .jumping-dots .dot-1{
+  animation-delay: 200ms;
+}
+.see_more_books_page_link_block:hover .jumping-dots .dot-2{
+  animation-delay: 400ms;
+}
+.see_more_books_page_link_block:hover .jumping-dots .dot-3{
+  animation-delay: 600ms;
+}
+
+@keyframes jump {
+  0%   {bottom: 0px;}
+  20%  {bottom: 5px;}
+  40%  {bottom: 0px;}
+}
+
+.slider {
+       width: 72%;
+       height: 720px;
+       overflow: hidden;
+       margin: 0 11% 50px 14%;
+       position: absolute;
+}
+
+.navigation {
+   position: relative;
+   bottom: 30px;
+   left: 40%;
+   display: flex;
+}
+
+.bar {
+   width: 30px;
+   height: 8px;
+   margin: 6px;
+   cursor: pointer;
+   background-color: #000;
+   opacity: .5;
+   border-radius: 10px;
+   transition: all 0.4s ease;
+}
+
+.bar:hover {
+   opacity: 1;
+   transform:scale(1.1);
+}
+
+input[name="r"] {
+   position: absolute;
+   visibility: hidden;
+}
+
+.slides {
+   width: 400%;
+   display: flex;
+}
+
+.slide {
+   width: 25%;
+   transition: all 0.6s ease;
+}
+
+.img {
+   width: 100%;
+          height: 720px;
+
+}
+
+#r1:checked ~ .s1 {
+   margin-left: 0;
+}
+
+#r2:checked ~ .s1 {
+   margin-left: -25%;
+}
+
+#r3:checked ~ .s1 {
+   margin-left: -50%;
+}
+
+#r4:checked ~ .s1 {
+   margin-left: -75%;
+}
+
+.text_block {
+       margin: 30px 14% 25px 14%;
+}
+
+.text {
+        font-family: "Georgia";
+        font-size: 20px;
+        margin-left: 3%;
+
+}
+
+.page_end_line {
+        margin-top: 800px;
+        width: 100%;
+}
+
+.bottom_block {
+        margin-top: 50px;
+        padding-top: 20px;
+        background-color: rgba(201, 201, 201, 0.7);
+        height: 200px;
+        width: 100%;
+}
+
+.bottom_block .bottom_section_block a{
+        font-family: "Georgia";
+        font-size: 18px;
+        color: #666666;
+        padding-top: 20px;
+        margin-left: 100px;
+
+}
+
+
